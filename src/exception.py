@@ -1,5 +1,6 @@
 import sys #go through file n exception in py to understand this
 import logging #to log the error to logging file
+from src.logger import logging #this is show in logging panel
 
 
 def error_message_detail(error, error_detail:sys):
