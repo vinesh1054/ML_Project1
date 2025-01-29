@@ -2,12 +2,16 @@
 
 import os
 import sys
-from src.exception import CustomException
+from src.exception  import CustomException
 from src.logger import logging
 import pandas as pd
 
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
+
+from src.components.data_transformation import DataTransformation        #from data transformation file
+from src.components.data_transformation import DataTransformationConfig  #from data transformation file
+
 
 @dataclass  #a decorator, used to define a class variable w/o using __init__
 class DataIngestionConfig:
@@ -58,10 +62,14 @@ class DataIngestion:
 
 if __name__ == "__main__":
     obj = DataIngestion()
-    obj.initiate_data_ingestion() #now u can see artifacts folder being created
+    train_data, test_data = obj.initiate_data_ingestion() #now u can see artifacts folder being created
     # Execute by typing python src/components/data_ingestion.py in cmd terminal
     #write .artifacts under environments in gitignore file
+    # train_data, test_data = obj.initiate_data_ingestion() -- will be used for data transformation file
 
+    data_transformation = DataTransformation()
+    data_transformation.initiate_data_transformation(train_data, test_data)
+    #now u can see a pickle file in artifacts folder
 
 
 
