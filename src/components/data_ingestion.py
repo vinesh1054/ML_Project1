@@ -12,6 +12,9 @@ from dataclasses import dataclass
 from src.components.data_transformation import DataTransformation        #from data transformation file
 from src.components.data_transformation import DataTransformationConfig  #from data transformation file
 
+from src.components.model_trainer import ModelTrainerConfig #from Model_traner.py
+from src.components.model_trainer import ModelTrainer       #from Model_traner.py
+
 
 @dataclass  #a decorator, used to define a class variable w/o using __init__
 class DataIngestionConfig:
@@ -68,8 +71,11 @@ if __name__ == "__main__":
     # train_data, test_data = obj.initiate_data_ingestion() -- will be used for data transformation file
 
     data_transformation = DataTransformation()
-    data_transformation.initiate_data_transformation(train_data, test_data)
-    #now u can see a pickle file in artifacts folder
+    train_arr, test_arr, _ = data_transformation.initiate_data_transformation(train_data, test_data)
+    #now u can see a pickle file in artifacts folder. savinbg the output to train_arr and test_arr since i need it fro modeltrainer
+
+    modeltrainer = ModelTrainer() #to execute ModellTrainer.py
+    print(modeltrainer.initiate_model_trainer(train_arr,test_arr))
 
 
 
